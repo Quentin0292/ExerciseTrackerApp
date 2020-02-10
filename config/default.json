@@ -1,0 +1,4 @@
+{
+  "mongoURI": "mongodb+srv://quentin:quentin123@mern-exercises-tracker-2isf8.mongodb.net/test?retryWrites=true&w=majority",
+  "jwtSecret": "secret"
+}

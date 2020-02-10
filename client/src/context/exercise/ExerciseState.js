@@ -37,6 +37,13 @@ const ExerciseState = props => {
   const [state, dispatch] = useReducer(exerciseReducer, initialState);
 
   // add exercise
+  const addExercise = exercise => {
+    exercise.id = uuid.v4();
+    dispatch({
+      type: ADD_EXERCISE,
+      payload: exercise
+    });
+  };
 
   // delete exercise
 
@@ -45,7 +52,8 @@ const ExerciseState = props => {
   return (
     <ExerciseContext.Provider
       value={{
-        exercises: state.exercises
+        exercises: state.exercises,
+        addExercise
       }}
     >
       {props.children}

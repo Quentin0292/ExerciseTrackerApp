@@ -2,7 +2,13 @@ import React, { useReducer } from 'react';
 import uuid from 'uuid';
 import ExerciseContext from './exerciseContext';
 import exerciseReducer from './exerciseReducer';
-import { ADD_EXERCISE, UPDATE_EXERCISE, DELETE_EXERCISE } from '../types';
+import {
+  ADD_EXERCISE,
+  UPDATE_EXERCISE,
+  DELETE_EXERCISE,
+  SET_CURRENT,
+  CLEAR_CURRENT
+} from '../types';
 
 const ExerciseState = props => {
   const initialState = {
@@ -31,7 +37,8 @@ const ExerciseState = props => {
         duration: 30,
         date: new Date()
       }
-    ]
+    ],
+    current: null
   };
 
   const [state, dispatch] = useReducer(exerciseReducer, initialState);
@@ -54,13 +61,38 @@ const ExerciseState = props => {
   };
 
   // update exercise
+  const updateExercise = exercise => {
+    dispatch({
+      type: UPDATE_EXERCISE,
+      payload: exercise
+    });
+  };
+
+  // set current
+  const setCurrent = exercise => {
+    dispatch({
+      type: SET_CURRENT,
+      payload: exercise
+    });
+  };
+
+  // clear current
+  const clearCurrent = () => {
+    dispatch({
+      type: CLEAR_CURRENT
+    });
+  };
 
   return (
     <ExerciseContext.Provider
       value={{
         exercises: state.exercises,
+        current: state.current,
         addExercise,
-        deleteExercise
+        deleteExercise,
+        updateExercise,
+        setCurrent,
+        clearCurrent
       }}
     >
       {props.children}

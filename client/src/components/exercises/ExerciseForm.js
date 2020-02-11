@@ -8,15 +8,24 @@ import 'react-datepicker/dist/react-datepicker.css';
 const CreateExercise = props => {
   const exerciseContext = useContext(ExerciseContext);
 
-  const { addExercise } = exerciseContext;
+  const {
+    addExercise,
+    updateExercise,
+    current,
+    clearCurrent
+  } = exerciseContext;
 
   useEffect(() => {
-    setExercise({
-      description: '',
-      duration: '',
-      date: new Date()
-    });
-  }, [exerciseContext]);
+    if (current !== null) {
+      setExercise(current);
+    } else {
+      setExercise({
+        description: '',
+        duration: '',
+        date: new Date()
+      });
+    }
+  }, [exerciseContext, current]);
 
   const [exercise, setExercise] = useState({
     description: '',
@@ -36,13 +45,23 @@ const CreateExercise = props => {
 
   const onSubmit = e => {
     e.preventDefault();
-    addExercise(exercise);
+    if (current === null) {
+      addExercise(exercise);
+    } else {
+      updateExercise(exercise);
+    }
     props.history.push('/');
+  };
+
+  const clearAll = () => {
+    clearCurrent();
   };
 
   return (
     <Fragment>
-      <h3 className='text-center p-4'>Create New Exercise Log</h3>
+      <h3 className='text-center p-4'>
+        {current ? 'Edit Exercise Log' : 'Create New Exercise Log'}
+      </h3>
       <form onSubmit={onSubmit}>
         <div className='form-group'>
           <label htmlFor='description'>Description: </label>
@@ -73,9 +92,21 @@ const CreateExercise = props => {
             <DatePicker selected={date} onChange={handleChangeDate} />
           </div>
         </div>
-        <button type='submit' className='btn btn-info btn-block'>
-          Add
-        </button>
+        <div>
+          <button type='submit' className='btn btn-info btn-block'>
+            {current ? 'Edit' : 'Add'}
+          </button>
+        </div>
+        {current && (
+          <div>
+            <button
+              className='mt-3 btn btn-outline-secondary btn-block'
+              onClick={clearAll}
+            >
+              Clear
+            </button>
+          </div>
+        )}
       </form>
     </Fragment>
   );

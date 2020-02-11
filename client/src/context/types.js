@@ -2,3 +2,5 @@
 export const ADD_EXERCISE = 'ADD_EXERCISE';
 export const UPDATE_EXERCISE = 'UPDATE_EXERCISE';
 export const DELETE_EXERCISE = 'DELETE_EXERCISE';
+export const SET_CURRENT = 'SET_CURRENT';
+export const CLEAR_CURRENT = 'CLEAR_CURRENT';

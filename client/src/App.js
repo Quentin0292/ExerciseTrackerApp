@@ -2,8 +2,8 @@ import React, { Fragment } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Home from './components/pages/Home';
 import Navbar from './components/layout/Navbar';
-import EditExercise from './components/exercises/EditExercise';
-import CreateExercise from './components/exercises/CreateExercise';
+
+import ExerciseForm from './components/exercises/ExerciseForm';
 import CreateUser from './components/users/CreateUser';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -19,8 +19,7 @@ function App() {
           <div className='container'>
             <Switch>
               <Route exact path='/' component={Home} />
-              <Route exact path='/edit/:id' component={EditExercise} />
-              <Route exact path='/create' component={CreateExercise} />
+              <Route exact path='/create' component={ExerciseForm} />
               <Route exact path='/user' component={CreateUser} />
               <Route />
             </Switch>

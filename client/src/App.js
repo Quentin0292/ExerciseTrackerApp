@@ -5,6 +5,8 @@ import Navbar from './components/layout/Navbar';
 
 import ExerciseForm from './components/exercises/ExerciseForm';
 import CreateUser from './components/users/CreateUser';
+import About from './components/pages/About';
+import Footer from './components/layout/Footer';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import ExerciseState from './context/exercise/ExerciseState';
@@ -21,8 +23,9 @@ function App() {
               <Route exact path='/' component={Home} />
               <Route exact path='/create' component={ExerciseForm} />
               <Route exact path='/user' component={CreateUser} />
-              <Route />
+              <Route exact path='/about' component={About} />
             </Switch>
+            <Footer />
           </div>
         </Fragment>
       </Router>

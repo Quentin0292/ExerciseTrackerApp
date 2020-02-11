@@ -46,6 +46,12 @@ const ExerciseState = props => {
   };
 
   // delete exercise
+  const deleteExercise = id => {
+    dispatch({
+      type: DELETE_EXERCISE,
+      payload: id
+    });
+  };
 
   // update exercise
 
@@ -53,7 +59,8 @@ const ExerciseState = props => {
     <ExerciseContext.Provider
       value={{
         exercises: state.exercises,
-        addExercise
+        addExercise,
+        deleteExercise
       }}
     >
       {props.children}

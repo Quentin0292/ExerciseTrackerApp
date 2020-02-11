@@ -16,17 +16,20 @@ const ExercisesList = () => {
 
   return (
     <Fragment>
-      <table className='table'>
-        <thead className='thead-light'>
-          <tr>
-            <th>Description</th>
-            <th>Duration</th>
-            <th>Date</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>{exercisesList()}</tbody>
-      </table>
+      <h3 className='text-center p-4'>Logged Exercises</h3>
+      <div className='table-responsive-sm'>
+        <table className='table table-striped'>
+          <thead className='thead-dark'>
+            <tr>
+              <th>Description</th>
+              <th>Duration</th>
+              <th>Date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>{exercisesList()}</tbody>
+        </table>
+      </div>
     </Fragment>
   );
 };

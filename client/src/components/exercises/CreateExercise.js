@@ -13,18 +13,26 @@ const CreateExercise = props => {
   useEffect(() => {
     setExercise({
       description: '',
-      duration: 0,
+      duration: '',
       date: new Date()
     });
   }, [exerciseContext]);
 
   const [exercise, setExercise] = useState({
     description: '',
-    duration: 0,
+    duration: '',
     date: new Date()
   });
 
   const { description, duration, date } = exercise;
+
+  const handleChange = e => {
+    setExercise({ ...exercise, [e.target.name]: e.target.value });
+  };
+
+  const handleChangeDate = date => {
+    setExercise({ ...exercise, date: date });
+  };
 
   const onSubmit = e => {
     e.preventDefault();
@@ -32,13 +40,9 @@ const CreateExercise = props => {
     props.history.push('/');
   };
 
-  const handleChange = e => {
-    setExercise({ ...exercise, [e.target.name]: e.target.value });
-  };
-
   return (
     <Fragment>
-      <h3>Create New Exercise Log</h3>
+      <h3 className='text-center p-4'>Create New Exercise Log</h3>
       <form onSubmit={onSubmit}>
         <div className='form-group'>
           <label htmlFor='description'>Description: </label>
@@ -66,10 +70,10 @@ const CreateExercise = props => {
         <div className='form-group'>
           <label htmlFor='date'>Date:</label>
           <div>
-            <DatePicker name='date' selected={date} onChange={handleChange} />
+            <DatePicker selected={date} onChange={handleChangeDate} />
           </div>
         </div>
-        <button type='submit' className='btn btn-primary btn-block'>
+        <button type='submit' className='btn btn-info btn-block'>
           Add
         </button>
       </form>

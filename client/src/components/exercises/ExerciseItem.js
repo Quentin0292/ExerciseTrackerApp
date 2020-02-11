@@ -10,7 +10,8 @@ const ExerciseItem = ({ exercise }) => {
       <td>{duration}</td>
       <td>{date.toString().substring(0, 10)}</td>
       <td>
-        <button>edit</button> | <button>delete</button>
+        <button className='btn btn-outline-info btn-sm'>edit</button> |{' '}
+        <button className='btn btn-outline-danger btn-sm'>delete</button>
       </td>
     </tr>
   );

@@ -36,16 +36,21 @@ const Navbar = ({ title }) => {
               Create Exercise Log
             </Link>
           </li>
-          <li className='navbar-item'>
-            <Link to='/user' className='nav-link'>
-              Create User
-            </Link>
-          </li>
         </ul>
         <ul className='navbar-nav mr-4'>
           <li className='navbar-item'>
             <Link to='/about' className='nav-link'>
               About
+            </Link>
+          </li>
+          <li className='navbar-item'>
+            <Link to='/register' className='nav-link'>
+              Register
+            </Link>
+          </li>
+          <li className='navbar-item'>
+            <Link to='/login' className='nav-link'>
+              Login
             </Link>
           </li>
         </ul>

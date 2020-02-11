@@ -14,6 +14,10 @@ const ExercisesList = () => {
     });
   };
 
+  if (exercises.length === 0) {
+    return <h4>Please add a exercise</h4>;
+  }
+
   return (
     <Fragment>
       <h3 className='text-center p-4'>Logged Exercises</h3>

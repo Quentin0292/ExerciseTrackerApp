@@ -11,7 +11,7 @@ const Footer = () => {
             style={linkGithub}
             href='https://github.com/quentin0292'
             target='_blank'
-            rel='noopener noreferer'
+            rel='noopener noreferrer'
           >
             Quentin Lecocq
           </a>

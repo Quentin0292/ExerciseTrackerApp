@@ -3,8 +3,10 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Home from './components/pages/Home';
 import Navbar from './components/layout/Navbar';
 
+import Register from './components/auth/Register';
+import Login from './components/auth/Login';
+
 import ExerciseForm from './components/exercises/ExerciseForm';
-import CreateUser from './components/users/CreateUser';
 import About from './components/pages/About';
 import Footer from './components/layout/Footer';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -22,8 +24,9 @@ function App() {
             <Switch>
               <Route exact path='/' component={Home} />
               <Route exact path='/create' component={ExerciseForm} />
-              <Route exact path='/user' component={CreateUser} />
               <Route exact path='/about' component={About} />
+              <Route exact path='/register' component={Register} />
+              <Route exact path='/login' component={Login} />
             </Switch>
             <Footer />
           </div>

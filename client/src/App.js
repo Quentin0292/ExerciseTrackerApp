@@ -12,26 +12,29 @@ import Footer from './components/layout/Footer';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import ExerciseState from './context/exercise/ExerciseState';
+import AuthState from './context/auth/AuthState';
 import './App.css';
 
 function App() {
   return (
     <ExerciseState>
-      <Router>
-        <Fragment>
-          <Navbar />
-          <div className='container'>
-            <Switch>
-              <Route exact path='/' component={Home} />
-              <Route exact path='/create' component={ExerciseForm} />
-              <Route exact path='/about' component={About} />
-              <Route exact path='/register' component={Register} />
-              <Route exact path='/login' component={Login} />
-            </Switch>
-            <Footer />
-          </div>
-        </Fragment>
-      </Router>
+      <AuthState>
+        <Router>
+          <Fragment>
+            <Navbar />
+            <div className='container'>
+              <Switch>
+                <Route exact path='/' component={Home} />
+                <Route exact path='/create' component={ExerciseForm} />
+                <Route exact path='/about' component={About} />
+                <Route exact path='/register' component={Register} />
+                <Route exact path='/login' component={Login} />
+              </Switch>
+              <Footer />
+            </div>
+          </Fragment>
+        </Router>
+      </AuthState>
     </ExerciseState>
   );
 }

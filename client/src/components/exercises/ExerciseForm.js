@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
-import DatePicker from 'react-datepicker';
-import ExerciseContext from '../../context/exercise/exerciseContext';
 import { withRouter } from 'react-router-dom';
+import ExerciseContext from '../../context/exercise/exerciseContext';
 
+import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
 const CreateExercise = props => {
@@ -15,6 +15,7 @@ const CreateExercise = props => {
     clearCurrent
   } = exerciseContext;
 
+  // à l'initialisation du component, je met à jours le state, soit avec l'exercise courrant (choisi pour être modifier) OU avec le state initial pour créer un exercise
   useEffect(() => {
     if (current !== null) {
       setExercise(current);
@@ -27,22 +28,27 @@ const CreateExercise = props => {
     }
   }, [exerciseContext, current]);
 
+  // initialisation du state exercise et de sa méthode pour le mettre à jour
   const [exercise, setExercise] = useState({
     description: '',
     duration: '',
     date: new Date()
   });
 
+  // destructuring du state
   const { description, duration, date } = exercise;
 
+  // à chaque modification des inputs je met à jour le state, avec la nouvelle valeur
   const handleChange = e => {
     setExercise({ ...exercise, [e.target.name]: e.target.value });
   };
 
+  // idem avec la date, fonction différente car j'utilise la librairie datePicker
   const handleChangeDate = date => {
     setExercise({ ...exercise, date: date });
   };
 
+  // à la soumission du formulaire, j'ajoute l'exercise si current est null, à l'inverse si current existe cela veut dire qu'on est dans une logique d'update, je met donc à jour l'exercise
   const onSubmit = e => {
     e.preventDefault();
     if (current === null) {
@@ -50,6 +56,7 @@ const CreateExercise = props => {
     } else {
       updateExercise(exercise);
     }
+    // et je renvoie l'utilisateur sur la page principale
     props.history.push('/');
   };
 

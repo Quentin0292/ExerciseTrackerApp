@@ -14,7 +14,7 @@ const Register = () => {
       setAlert(error, 'danger');
       clearErrors();
     }
-  }, [error]);
+  }, [error, setAlert, clearErrors]);
 
   // déclare une nouvelle variable d'état que je vais appeler user
   const [user, setUser] = useState({
@@ -31,18 +31,20 @@ const Register = () => {
 
   const onSubmit = e => {
     e.preventDefault();
+    // premier check pour verifier que tous les champs sont remplis
     if (name === '' || email === '' || password === '') {
       // console.log('Please enter all fields');
       setAlert('Please enter all fileds', 'danger');
-    } else if (password !== password2) {
+    } // deuxième check pour verifier que les deux mots de passes sont identiques
+    else if (password !== password2) {
       setAlert('Password do not match', 'danger');
-    } else {
+    } // si les deux checks sont ok, on fais appelle à la fonction register() qui va enregistrer l'utilisateur dans la base de données via l'API
+    else {
       register({
         name,
         email,
         password
       });
-      setAlert('Successfully register, welcome', 'success');
     }
   };
 

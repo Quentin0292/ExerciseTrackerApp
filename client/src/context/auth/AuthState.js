@@ -30,8 +30,33 @@ const AuthState = props => {
   };
 
   // register user
-  const registerUser = () => {
-    console.log('register user');
+  const register = async formData => {
+    // config headers pour la requete axios
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    };
+    try {
+      const res = await axios.post(
+        'http://localhost:5000/api/users',
+        formData,
+        config
+      );
+      // si tout est ok retourne un token
+      console.log(res.data);
+      dispatch({
+        type: REGISTER_SUCCESS,
+        payload: res.data
+      });
+    } catch (err) {
+      console.log(err.response.data.msg);
+      dispatch({
+        type: REGISTER_FAIL,
+        // l'objet msg vient direct de mon backend, à l'instruction if(!user)
+        payload: err.response.data.msg
+      });
+    }
   };
 
   // login user
@@ -57,7 +82,7 @@ const AuthState = props => {
         user: state.user,
         error: state.user,
         loadUser,
-        registerUser,
+        register,
         loginUser,
         logout,
         clearErrors

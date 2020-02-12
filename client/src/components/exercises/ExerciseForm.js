@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import DatePicker from 'react-datepicker';
 import ExerciseContext from '../../context/exercise/exerciseContext';
 import { withRouter } from 'react-router-dom';
@@ -57,11 +57,25 @@ const CreateExercise = props => {
     clearCurrent();
   };
 
+  const titleEdit = () => {
+    return (
+      <h1 className='text-center p-4'>
+        Edit <span className='text-info'>Exercise</span>
+      </h1>
+    );
+  };
+
+  const titleCreate = () => {
+    return (
+      <h1 className='text-center p-4'>
+        Create New <span className='text-info'>Exercise</span> Log
+      </h1>
+    );
+  };
+
   return (
-    <Fragment>
-      <h3 className='text-center p-4'>
-        {current ? 'Edit Exercise Log' : 'Create New Exercise Log'}
-      </h3>
+    <div className='form-container'>
+      {current ? titleEdit() : titleCreate()}
       <form onSubmit={onSubmit}>
         <div className='form-group'>
           <label htmlFor='description'>Description: </label>
@@ -108,7 +122,7 @@ const CreateExercise = props => {
           </div>
         )}
       </form>
-    </Fragment>
+    </div>
   );
 };
 

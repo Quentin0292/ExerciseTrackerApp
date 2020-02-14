@@ -2,6 +2,8 @@ import React, { useReducer } from 'react';
 import axios from 'axios';
 import AuthContext from './authContext';
 import authReducer from './authReducer';
+import setAuthToken from '../../utils/setAuthToken';
+
 import {
   REGISTER_SUCCESS,
   REGISTER_FAIL,
@@ -25,8 +27,23 @@ const AuthState = props => {
   const [state, dispatch] = useReducer(authReducer, initialState);
 
   // load user
-  const loadUser = () => {
-    console.log('load user');
+  const loadUser = async () => {
+    if (localStorage.token) {
+      setAuthToken(localStorage.token);
+    }
+
+    try {
+      const res = await axios.get('http://localhost:5000/api/auth');
+
+      dispatch({
+        type: USER_LOADED,
+        payload: res.data
+      });
+    } catch (err) {
+      dispatch({
+        type: AUTH_ERROR
+      });
+    }
   };
 
   // register user
@@ -44,7 +61,7 @@ const AuthState = props => {
         config
       );
       // si tout est ok retourne un token
-      console.log(res.data);
+      // console.log(res.data);
       dispatch({
         type: REGISTER_SUCCESS,
         payload: res.data
@@ -60,8 +77,33 @@ const AuthState = props => {
   };
 
   // login user
-  const loginUser = () => {
-    console.log('login user');
+  const login = async formData => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    };
+    try {
+      const res = await axios.post(
+        'http://localhost:5000/api/auth',
+        formData,
+        config
+      );
+
+      // console.log(res.data);
+      dispatch({
+        type: LOGIN_SUCCESS,
+        payload: res.data
+      });
+
+      loadUser();
+    } catch (err) {
+      // console.log(err.response.data.msg);
+      dispatch({
+        type: LOGIN_FAIL,
+        payload: err.response.data.msg
+      });
+    }
   };
 
   // logout
@@ -85,7 +127,7 @@ const AuthState = props => {
         error: state.error,
         loadUser,
         register,
-        loginUser,
+        login,
         logout,
         clearErrors
       }}

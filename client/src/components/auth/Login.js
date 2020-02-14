@@ -1,5 +1,4 @@
 import React, { useState, useContext, useEffect } from 'react';
-
 import AuthContext from '../../context/auth/authContext';
 
 const Login = props => {
@@ -7,19 +6,22 @@ const Login = props => {
 
   const { login, error, clearErrors, isAuthenticated } = authContext;
 
+  useEffect(() => {
+    if (isAuthenticated) {
+      props.history.push('/');
+    }
+
+    if (error === 'Invalid Credrentials') {
+      console.log('invalid credentials');
+    }
+  }, [error, isAuthenticated, props.history]);
+
   const [user, setUser] = useState({
     email: '',
     password: ''
   });
 
   const { email, password } = user;
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      props.history.push('/');
-    }
-    // eslint-disavle-next-line
-  }, [isAuthenticated]);
 
   const onChange = e => {
     setUser({ ...user, [e.target.name]: e.target.value });

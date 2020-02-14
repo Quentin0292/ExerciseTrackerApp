@@ -1,9 +1,43 @@
-import React from 'react';
+import React, { Fragment, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { FaThinkPeaks } from 'react-icons/fa';
+import AuthContext from '../../context/auth/authContext';
 
 const Navbar = ({ title }) => {
+  const authContext = useContext(AuthContext);
+
+  const { isAuthenticated, user } = authContext;
+
+  const authLinks = (
+    <Fragment>
+      <li className='navbar-item'>
+        <a href='#!' className='nav-link'>
+          Hello {user && user.name}
+        </a>
+      </li>
+      <li className='navbar-item'>
+        <a href='#!' className='nav-link'>
+          <i className='fas fa-sign-out-alt'></i> <span>Logout</span>
+        </a>
+      </li>
+    </Fragment>
+  );
+
+  const guestLinks = (
+    <Fragment>
+      <li className='navbar-item'>
+        <Link to='/register' className='nav-link'>
+          Register
+        </Link>
+      </li>
+      <li className='navbar-item'>
+        <Link to='/login' className='nav-link'>
+          Login
+        </Link>
+      </li>
+    </Fragment>
+  );
   return (
     <nav className='navbar navbar-expand-lg navbar-light bg-light'>
       <Link to='/' className='navbar-brand'>
@@ -36,23 +70,14 @@ const Navbar = ({ title }) => {
               Create Exercise Log
             </Link>
           </li>
-        </ul>
-        <ul className='navbar-nav mr-4'>
           <li className='navbar-item'>
             <Link to='/about' className='nav-link'>
               About
             </Link>
           </li>
-          <li className='navbar-item'>
-            <Link to='/register' className='nav-link'>
-              Register
-            </Link>
-          </li>
-          <li className='navbar-item'>
-            <Link to='/login' className='nav-link'>
-              Login
-            </Link>
-          </li>
+        </ul>
+        <ul className='navbar-nav mr-4'>
+          {isAuthenticated ? authLinks : guestLinks}
         </ul>
       </div>
     </nav>

@@ -15,10 +15,16 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import ExerciseState from './context/exercise/ExerciseState';
 import AuthState from './context/auth/AuthState';
 import AlertState from './context/alert/AlertState';
+import setAuthToken from './utils/setAuthToken';
 
 import './App.css';
 
-function App() {
+if (localStorage.token) {
+  console.log('yes token');
+  setAuthToken(localStorage.token);
+}
+
+const App = () => {
   return (
     <ExerciseState>
       <AuthState>
@@ -43,6 +49,6 @@ function App() {
       </AuthState>
     </ExerciseState>
   );
-}
+};
 
 export default App;

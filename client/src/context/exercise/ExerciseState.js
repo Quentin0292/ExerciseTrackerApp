@@ -8,42 +8,33 @@ import {
   DELETE_EXERCISE,
   SET_CURRENT,
   EXERCISE_ERROR,
-  GET_EXERCISE,
+  GET_EXERCISES,
   CLEAR_CURRENT
 } from '../types';
 
 const ExerciseState = props => {
   const initialState = {
-    exercises: [
-      {
-        id: 1,
-        description: 'running',
-        duration: 30,
-        date: new Date()
-      },
-      {
-        id: 2,
-        description: 'biking',
-        duration: 90,
-        date: new Date()
-      },
-      {
-        id: 3,
-        description: 'swimming',
-        duration: 45,
-        date: new Date()
-      },
-      {
-        id: 4,
-        description: 'running',
-        duration: 30,
-        date: new Date()
-      }
-    ],
+    exercises: [],
     current: null
   };
 
   const [state, dispatch] = useReducer(exerciseReducer, initialState);
+
+  // get exercises
+  const getExercises = async () => {
+    try {
+      const res = await axios.get('http://localhost:5000/api/exercises');
+      dispatch({
+        type: GET_EXERCISES,
+        payload: res.data
+      });
+    } catch (err) {
+      dispatch({
+        type: EXERCISE_ERROR,
+        payload: err.response.msg
+      });
+    }
+  };
 
   // add exercise
   const addExercise = async exercise => {
@@ -107,6 +98,7 @@ const ExerciseState = props => {
       value={{
         exercises: state.exercises,
         current: state.current,
+        getExercises,
         addExercise,
         deleteExercise,
         updateExercise,

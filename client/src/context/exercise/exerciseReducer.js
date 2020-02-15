@@ -3,11 +3,18 @@ import {
   UPDATE_EXERCISE,
   DELETE_EXERCISE,
   SET_CURRENT,
-  CLEAR_CURRENT
+  CLEAR_CURRENT,
+  GET_EXERCISES
 } from '../types';
 
 export default (state, action) => {
   switch (action.type) {
+    case GET_EXERCISES:
+      return {
+        ...state,
+        exercises: action.payload,
+        loading: false
+      };
     case ADD_EXERCISE:
       return {
         ...state,

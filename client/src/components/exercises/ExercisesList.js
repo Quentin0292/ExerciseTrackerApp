@@ -1,16 +1,21 @@
-import React, { Fragment, useContext } from 'react';
+import React, { Fragment, useContext, useEffect } from 'react';
 import ExerciseItem from './ExerciseItem';
 
 import ExerciseContext from '../../context/exercise/exerciseContext';
 
 const ExercisesList = () => {
   const exerciseContext = useContext(ExerciseContext);
-  const { exercises } = exerciseContext;
+  const { exercises, getExercises } = exerciseContext;
+
+  useEffect(() => {
+    getExercises();
+    // eslint-disable-next-line
+  }, []);
 
   const exercisesList = () => {
     // console.log('hello from exercisesList ');
     return exercises.map(exercise => {
-      return <ExerciseItem key={exercise.id} exercise={exercise} />;
+      return <ExerciseItem key={exercise._id} exercise={exercise} />;
     });
   };
 

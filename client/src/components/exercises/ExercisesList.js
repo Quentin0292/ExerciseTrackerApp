@@ -5,7 +5,7 @@ import ExerciseContext from '../../context/exercise/exerciseContext';
 
 const ExercisesList = () => {
   const exerciseContext = useContext(ExerciseContext);
-  const { exercises, getExercises } = exerciseContext;
+  const { exercises, getExercises, loading } = exerciseContext;
 
   useEffect(() => {
     getExercises();
@@ -19,8 +19,8 @@ const ExercisesList = () => {
     });
   };
 
-  if (exercises.length === 0) {
-    return <h4>Please add a exercise</h4>;
+  if (exercises !== null && exercises.length === 0 && !loading) {
+    return <h3 className='text-center p-4'>Please add a exercise</h3>;
   }
 
   return (

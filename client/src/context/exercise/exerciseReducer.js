@@ -25,7 +25,7 @@ export default (state, action) => {
       return {
         ...state,
         exercises: state.exercises.filter(
-          exercise => exercise.id !== action.payload
+          exercise => exercise._id !== action.payload
         ),
         loading: false
       };

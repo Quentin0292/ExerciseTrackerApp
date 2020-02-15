@@ -56,6 +56,7 @@ const CreateExercise = props => {
     } else {
       updateExercise(exercise);
     }
+    clearAll();
     // et je renvoie l'utilisateur sur la page principale
     props.history.push('/');
   };

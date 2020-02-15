@@ -15,7 +15,8 @@ import {
 const ExerciseState = props => {
   const initialState = {
     exercises: [],
-    current: null
+    current: null,
+    error: null
   };
 
   const [state, dispatch] = useReducer(exerciseReducer, initialState);
@@ -63,11 +64,19 @@ const ExerciseState = props => {
   };
 
   // delete exercise
-  const deleteExercise = id => {
-    dispatch({
-      type: DELETE_EXERCISE,
-      payload: id
-    });
+  const deleteExercise = async id => {
+    try {
+      await axios.delete(`http://localhost:5000/api/exercises/${id}`);
+      dispatch({
+        type: DELETE_EXERCISE,
+        payload: id
+      });
+    } catch (err) {
+      dispatch({
+        type: EXERCISE_ERROR,
+        payload: err.response.msg
+      });
+    }
   };
 
   // update exercise

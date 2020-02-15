@@ -15,31 +15,53 @@ const Navbar = ({ title }) => {
 
   const authLinks = (
     <Fragment>
-      <li className='navbar-item'>
-        <div className='nav-link'>Hello {user && user.name}</div>
-      </li>
-      <li className='navbar-item'>
-        <a href='#!' onClick={handleLogout} className='nav-link'>
-          <i className='fas fa-sign-out-alt'></i> <span>Logout</span>
-        </a>
-      </li>
+      <ul className='navbar-nav mr-auto mt-2 mt-lg-0'>
+        <li className='nav-item'>
+          <Link to='/' className='nav-link'>
+            Exercises
+          </Link>
+        </li>
+        <li className='navbar-item'>
+          <Link to='/create' className='nav-link'>
+            Create Exercise Log
+          </Link>
+        </li>
+        <li className='navbar-item'>
+          <Link to='/about' className='nav-link'>
+            About
+          </Link>
+        </li>
+      </ul>
+      <ul className='navbar-nav mr-4'>
+        <li className='navbar-item'>
+          <div className='nav-link'>Hello {user && user.name}</div>
+        </li>
+        <li className='navbar-item'>
+          <a href='#!' onClick={handleLogout} className='nav-link'>
+            <i className='fas fa-sign-out-alt'></i> <span>Logout</span>
+          </a>
+        </li>
+      </ul>
     </Fragment>
   );
 
   const guestLinks = (
     <Fragment>
-      <li className='navbar-item'>
-        <Link to='/register' className='nav-link'>
-          Register
-        </Link>
-      </li>
-      <li className='navbar-item'>
-        <Link to='/login' className='nav-link'>
-          Login
-        </Link>
-      </li>
+      <ul className='navbar-nav mr-4'>
+        <li className='navbar-item'>
+          <Link to='/register' className='nav-link'>
+            Register
+          </Link>
+        </li>
+        <li className='navbar-item'>
+          <Link to='/login' className='nav-link'>
+            Login
+          </Link>
+        </li>
+      </ul>
     </Fragment>
   );
+
   return (
     <nav className='navbar navbar-expand-lg navbar-light bg-light'>
       <Link to='/' className='navbar-brand'>
@@ -61,26 +83,7 @@ const Navbar = ({ title }) => {
         className='collape navbar-collapse collapse'
         id='navbarTogglerDemo02'
       >
-        <ul className='navbar-nav mr-auto mt-2 mt-lg-0'>
-          <li className='nav-item'>
-            <Link to='/' className='nav-link'>
-              Exercises
-            </Link>
-          </li>
-          <li className='navbar-item'>
-            <Link to='/create' className='nav-link'>
-              Create Exercise Log
-            </Link>
-          </li>
-          <li className='navbar-item'>
-            <Link to='/about' className='nav-link'>
-              About
-            </Link>
-          </li>
-        </ul>
-        <ul className='navbar-nav mr-4'>
-          {isAuthenticated ? authLinks : guestLinks}
-        </ul>
+        {isAuthenticated ? authLinks : guestLinks}
       </div>
     </nav>
   );

@@ -2,9 +2,6 @@ import React, { useState, useEffect, useContext } from 'react';
 import { withRouter } from 'react-router-dom';
 import ExerciseContext from '../../context/exercise/exerciseContext';
 
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-
 const CreateExercise = props => {
   const exerciseContext = useContext(ExerciseContext);
 
@@ -36,16 +33,11 @@ const CreateExercise = props => {
   });
 
   // destructuring du state
-  const { description, duration, date } = exercise;
+  const { description, duration } = exercise;
 
   // à chaque modification des inputs je met à jour le state, avec la nouvelle valeur
   const handleChange = e => {
     setExercise({ ...exercise, [e.target.name]: e.target.value });
-  };
-
-  // idem avec la date, fonction différente car j'utilise la librairie datePicker
-  const handleChangeDate = date => {
-    setExercise({ ...exercise, date: date });
   };
 
   // à la soumission du formulaire, j'ajoute l'exercise si current est null, à l'inverse si current existe cela veut dire qu'on est dans une logique d'update, je met donc à jour l'exercise
@@ -108,12 +100,12 @@ const CreateExercise = props => {
           />
           <small>in minutes</small>
         </div>
-        <div className='form-group'>
+        {/* <div className='form-group'>
           <label htmlFor='date'>Date:</label>
           <div>
             <DatePicker selected={date} onChange={handleChangeDate} />
           </div>
-        </div>
+        </div> */}
         <div>
           <button type='submit' className='btn btn-info btn-block'>
             {current ? 'Edit' : 'Add'}

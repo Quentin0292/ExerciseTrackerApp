@@ -14,7 +14,7 @@ import {
 
 const ExerciseState = props => {
   const initialState = {
-    exercises: [],
+    exercises: null,
     current: null,
     error: null
   };
@@ -80,11 +80,29 @@ const ExerciseState = props => {
   };
 
   // update exercise
-  const updateExercise = exercise => {
-    dispatch({
-      type: UPDATE_EXERCISE,
-      payload: exercise
-    });
+  const updateExercise = async exercise => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    };
+
+    try {
+      const res = await axios.put(
+        `http://localhost:5000/api/exercises/${exercise._id}`,
+        exercise,
+        config
+      );
+      dispatch({
+        type: UPDATE_EXERCISE,
+        payload: res.data
+      });
+    } catch (err) {
+      dispatch({
+        type: EXERCISE_ERROR,
+        payload: err.response.msg
+      });
+    }
   };
 
   // set current

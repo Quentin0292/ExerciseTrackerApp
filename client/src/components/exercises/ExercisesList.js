@@ -36,7 +36,9 @@ const ExercisesList = () => {
               <th>Actions</th>
             </tr>
           </thead>
-          <tbody>{exercisesList()}</tbody>
+          <tbody>
+            {exercises !== null && !loading ? exercisesList() : null}
+          </tbody>
         </table>
       </div>
     </Fragment>

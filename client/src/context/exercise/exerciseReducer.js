@@ -36,7 +36,7 @@ export default (state, action) => {
           // if contact match with the contact in the payload,
           // i replace the contact with the new value
           // else i just return the contact original
-          exercise.id === action.payload.id ? action.payload : exercise
+          exercise._id === action.payload._id ? action.payload : exercise
         ),
         loading: false
       };

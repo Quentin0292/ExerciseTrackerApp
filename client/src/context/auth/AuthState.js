@@ -69,7 +69,6 @@ const AuthState = props => {
 
       loadUser();
     } catch (err) {
-      console.log(err.response.data.msg);
       dispatch({
         type: REGISTER_FAIL,
         // l'objet msg vient direct de mon backend, à l'instruction if(!user)

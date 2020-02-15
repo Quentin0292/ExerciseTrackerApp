@@ -10,7 +10,7 @@ const ExerciseItem = ({ exercise }) => {
   const { deleteExercise, setCurrent, clearCurrent } = exerciseContext;
 
   // destructure l'objet exercise, envoyé par le component ExercisesList pour avoir accès plus facilement à ses propriétés
-  const { _id, description, duration, date, id } = exercise;
+  const { _id, description, duration, date } = exercise;
 
   // mettre la première lettre de ma description en capitale
   const descriptionCapitalize =
@@ -22,9 +22,6 @@ const ExerciseItem = ({ exercise }) => {
     clearCurrent();
   };
 
-  const handleUpdate = exercise => {
-    setCurrent(exercise);
-  };
   return (
     <tr>
       <td>{descriptionCapitalize}</td>
@@ -34,14 +31,14 @@ const ExerciseItem = ({ exercise }) => {
         <Link
           to='/create'
           className='btn btn-outline-info btn-sm'
-          onClick={() => handleUpdate(exercise)}
+          onClick={() => setCurrent(exercise)}
         >
           edit
         </Link>{' '}
         |{' '}
         <button
           className='btn btn-outline-danger btn-sm'
-          onClick={() => handleDelete(id)}
+          onClick={handleDelete}
         >
           delete
         </button>

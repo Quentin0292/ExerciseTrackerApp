@@ -1,9 +1,12 @@
 import React, { useState, useContext, useEffect } from 'react';
 import AuthContext from '../../context/auth/authContext';
+import AlertContext from '../../context/alert/alertContext';
 
 const Login = props => {
   const authContext = useContext(AuthContext);
+  const alertContext = useContext(AlertContext);
 
+  const { setAlert } = alertContext;
   const { login, error, clearErrors, isAuthenticated } = authContext;
 
   useEffect(() => {
@@ -12,8 +15,10 @@ const Login = props => {
     }
 
     if (error === 'Invalid Credrentials') {
-      console.log('invalid credentials');
+      setAlert(error, 'danger');
+      clearErrors();
     }
+    // eslint-disable-next-line
   }, [error, isAuthenticated, props.history]);
 
   const [user, setUser] = useState({
@@ -30,7 +35,7 @@ const Login = props => {
   const onSubmit = e => {
     e.preventDefault();
     if (email === '' || password === '') {
-      console.log('Please fill in all fields');
+      setAlert('Please fill in all fields', 'danger');
     } else {
       login({ email, password });
     }

@@ -1,5 +1,5 @@
 import React, { useReducer } from 'react';
-import uuid from 'uuid';
+import axios from 'axios';
 import ExerciseContext from './exerciseContext';
 import exerciseReducer from './exerciseReducer';
 import {
@@ -7,6 +7,8 @@ import {
   UPDATE_EXERCISE,
   DELETE_EXERCISE,
   SET_CURRENT,
+  EXERCISE_ERROR,
+  GET_EXERCISE,
   CLEAR_CURRENT
 } from '../types';
 
@@ -44,12 +46,29 @@ const ExerciseState = props => {
   const [state, dispatch] = useReducer(exerciseReducer, initialState);
 
   // add exercise
-  const addExercise = exercise => {
-    exercise.id = uuid.v4();
-    dispatch({
-      type: ADD_EXERCISE,
-      payload: exercise
-    });
+  const addExercise = async exercise => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    };
+
+    try {
+      const res = await axios.post(
+        'http://localhost:5000/api/exercises',
+        exercise,
+        config
+      );
+      dispatch({
+        type: ADD_EXERCISE,
+        payload: res.data
+      });
+    } catch (err) {
+      dispatch({
+        type: EXERCISE_ERROR,
+        payload: err.response.msg
+      });
+    }
   };
 
   // delete exercise

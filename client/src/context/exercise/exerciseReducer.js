@@ -11,14 +11,16 @@ export default (state, action) => {
     case ADD_EXERCISE:
       return {
         ...state,
-        exercises: [...state.exercises, action.payload]
+        exercises: [action.payload, ...state.exercises],
+        loading: false
       };
     case DELETE_EXERCISE:
       return {
         ...state,
         exercises: state.exercises.filter(
           exercise => exercise.id !== action.payload
-        )
+        ),
+        loading: false
       };
     case UPDATE_EXERCISE:
       return {
@@ -28,7 +30,8 @@ export default (state, action) => {
           // i replace the contact with the new value
           // else i just return the contact original
           exercise.id === action.payload.id ? action.payload : exercise
-        )
+        ),
+        loading: false
       };
     case SET_CURRENT:
       return {
